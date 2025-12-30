@@ -36,7 +36,10 @@ def start():
         step()
 
 def pause():
-    state.running = False
+    if state.running:
+        state.running = False
+    else:
+        state.running = True
 
 def step():
     if not state.running:
@@ -51,4 +54,5 @@ def step():
 
 controls = ControlsUI(app, state, start, pause, on_algorithm_change, algorithm_list)
 
+board_ui.draw_empty()
 root.mainloop()

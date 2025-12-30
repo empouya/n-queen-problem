@@ -11,6 +11,9 @@ class BoardUI:
         )
         self.canvas.pack()
 
+    def draw_empty(self):
+        self.draw([-1] * self.n)
+
     def draw(self, board):
         self.canvas.delete("all")
 
