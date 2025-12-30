@@ -15,9 +15,21 @@ app.pack(fill=tk.BOTH, expand=True)
 state = AppState()
 board_ui = BoardUI(app, N)
 
+ALGORITHMS = {
+    "Backtracking": BacktrackingAlgorithm,
+}
+
+algorithm_list = list(ALGORITHMS.keys())
+state.algorithm_name = "Backtracking"
+
+def on_algorithm_change(name):
+    state.algorithm_name = name
+    state.running = False
+
 def start():
     if not state.running:
-        algo = BacktrackingAlgorithm(N)
+        AlgorithmClass = ALGORITHMS.get(state.algorithm_name, BacktrackingAlgorithm)
+        algo = AlgorithmClass(N)
         state.algorithm = algo
         state.iterator = algo.run()
         state.running = True
@@ -37,6 +49,6 @@ def step():
     except StopIteration:
         state.running = False
 
-controls = ControlsUI(app, state, start, pause)
+controls = ControlsUI(app, state, start, pause, on_algorithm_change, algorithm_list)
 
 root.mainloop()

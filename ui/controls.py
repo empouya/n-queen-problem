@@ -2,23 +2,23 @@ import tkinter as tk
 from tkinter import ttk
 
 class ControlsUI:
-    def __init__(self, parent, state, start_callback, pause_callback):
+    def __init__(self, parent, state, start_callback, pause_callback, algo_change_callback, algorithms):
         container = tk.Frame(parent)
         container.pack(fill=tk.X, pady=(15, 0))
 
         # Algorithm selector button
         tk.Label(container, text="Algorithm:", font=("Segoe UI", 10)).pack(side=tk.LEFT, padx=(0, 6))
 
-        self.algorithm_var = tk.StringVar(value="Backtracking")
+        self.algorithm_var = tk.StringVar(value=state.algorithm_name)
         algo_menu = ttk.Combobox(
             container,
             textvariable=self.algorithm_var,
             state="readonly",
             width=15,
-            values=["Backtracking"]
+            values=algorithms
         )
         algo_menu.pack(side=tk.LEFT, padx=(0, 12))
-        algo_menu.bind("<<ComboboxSelected>>", lambda e: algo_change_cb(self.algorithm_var.get()))
+        algo_menu.bind("<<ComboboxSelected>>", lambda e: algo_change_callback(self.algorithm_var.get()))
 
         # Control buttons
         tk.Button(
