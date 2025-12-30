@@ -9,8 +9,11 @@ N = 8
 root = tk.Tk()
 root.title("N-Queens Visualizer")
 
+app = tk.Frame(root, padx=30, pady=30)
+app.pack(fill=tk.BOTH, expand=True)
+
 state = AppState()
-board_ui = BoardUI(root, N)
+board_ui = BoardUI(app, N)
 
 def start():
     if not state.running:
@@ -34,6 +37,6 @@ def step():
     except StopIteration:
         state.running = False
 
-controls = ControlsUI(root, state, start, pause)
+controls = ControlsUI(app, state, start, pause)
 
 root.mainloop()
